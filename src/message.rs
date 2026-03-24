@@ -320,6 +320,8 @@ pub struct RestoredDisputesInfo {
     pub status: String,
     /// Who initiated the dispute: Buyer, Seller, or null if unknown
     pub initiator: Option<DisputeInitiator>,
+    /// Public key of the solver assigned to the dispute, None if no solver has taken it yet
+    pub solver_pubkey: Option<String>,
 }
 
 /// Restore session user info
@@ -779,6 +781,7 @@ mod test {
                 trade_index: 1,
                 status: "initiated".to_string(),
                 initiator: Some(crate::message::DisputeInitiator::Buyer),
+                solver_pubkey: None,
             },
             crate::message::RestoredDisputesInfo {
                 dispute_id: uuid!("608e1272-d5f4-47e6-bd97-3504baea9c26"),
@@ -786,6 +789,7 @@ mod test {
                 trade_index: 2,
                 status: "in-progress".to_string(),
                 initiator: None,
+                solver_pubkey: Some("aabbccdd11223344aabbccdd11223344aabbccdd11223344aabbccdd11223344".to_string()),
             },
             crate::message::RestoredDisputesInfo {
                 dispute_id: uuid!("708e1272-d5f4-47e6-bd97-3504baea9c27"),
@@ -793,6 +797,7 @@ mod test {
                 trade_index: 3,
                 status: "initiated".to_string(),
                 initiator: Some(crate::message::DisputeInitiator::Seller),
+                solver_pubkey: None,
             },
         ];
 
